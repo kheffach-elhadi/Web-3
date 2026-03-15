@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>GPA Calculator</title>
+
+<link rel="stylesheet" href="style.css">
+<script src="script.js"></script>
+  <style> body{
+font-family: Arial;
+background-color:#f0f0f0;
+margin:20px;
+}
+
+h1{
+color:blue;
+}
+
+.course-row{
+display:flex;
+gap:10px;
+margin-bottom:10px;
+}
+
+input,select{
+padding:5px;
+border:1px solid #ccc;
+}
+
+table{
+border-collapse:collapse;
+margin-top:20px;
+}
+
+table th,table td{
+border:1px solid #000;
+padding:8px;
+text-align:center;
+} </style>
+</head>
+
+<body>
+  <script>  function addCourse(){
+
+var row = document.createElement("div");
+
+row.className="course-row";
+
+row.innerHTML =
+
+'<label>Course:</label>' +
+'<input type="text" name="course[]" required>' +
+
+'<label>Credits:</label>' +
+'<input type="number" name="credits[]" min="1" required>' +
+
+'<label>Grade:</label>' +
+'<select name="grade[]">' +
+'<option value="4">A</option>' +
+'<option value="3">B</option>' +
+'<option value="2">C</option>' +
+'<option value="1">D</option>' +
+'<option value="0">F</option>' +
+'</select>' +
+
+'<button onclick="this.parentNode.remove()">Remove</button>';
+
+document.getElementById("courses").appendChild(row);
+
+}
+
+
+function validateForm(){
+
+var courses = document.getElementsByName("course[]");
+var credits = document.getElementsByName("credits[]");
+
+for(var i=0;i<courses.length;i++){
+
+if(courses[i].value==""){
+
+alert("Course name required");
+return false;
+
+}
+
+}
+
+for(var i=0;i<credits.length;i++){
+
+if(credits[i].value<=0){
+
+alert("Credits must be positive");
+return false;
+
+}
+
+}
+
+return true;
+
+} </script> 
+<h1>GPA Calculator</h1>
+
+<form action="calculate.php" method="post" onsubmit="return validateForm()">
+
+<div id="courses">
+
+<div class="course-row">
+
+<label>Course:</label>
+<input type="text" name="course[]" required>
+
+<label>Credits:</label>
+<input type="number" name="credits[]" min="1" required>
+
+<label>Grade:</label>
+<select name="grade[]">
+<option value="4">A</option>
+<option value="3">B</option>
+<option value="2">C</option>
+<option value="1">D</option>
+<option value="0">F</option>
+</select>
+
+</div>
+
+</div>
+
+<button type="button" onclick="addCourse()">Add Course</button>
+<br><br>
+
+<input type="submit" value="Calculate GPA">
+
+</form>
+
+</body>
+</html>
